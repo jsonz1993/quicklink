@@ -2,7 +2,20 @@
 > 自用 包含了 [`intersection-observer polyfill` ](https://www.npmjs.com/package/intersection-observer) 用于支持移动端
 
 
-# 使用
+# npm 
+`npm i @jsonz/quicklink`
+
+# 引入
+```javascript
+import quicklink, { setQuicklinkOptions } from '@jsonz/quicklink'
+setQuicklinkOptions({
+  origins: ['github.com', 'google.com', location.href, ],
+});
+
+quicklink();
+```
+
+# API
 
 默认情况见 [GoogleChromeLabs/quicklink](https://github.com/GoogleChromeLabs/quicklink/blob/1.0.0/README.md)
 
