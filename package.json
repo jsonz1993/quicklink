@@ -1,22 +1,23 @@
 {
-  "name": "quicklink",
+  "name": "@jsonz/quicklink",
   "version": "1.0.0",
   "description": "Faster subsequent page-loads by prefetching in-viewport links during idle time",
-  "main": "dist/quicklink.js",
-  "repository": "https://github.com/GoogleChromeLabs/quicklink.git",
-  "author": "addyosmani <addyosmani@gmail.com>",
+  "repository": "https://github.com/jsonz1993/quicklink.git",
+  "author": "jsonz <jsonz@qq.com>",
   "license": "Apache-2.0",
+  "main": "dist/quicklink.js",
   "module": "dist/quicklink.mjs",
   "jsnext:main": "dist/quicklink.mjs",
   "umd:main": "dist/quicklink.umd.js",
   "unpkg": "dist/quicklink.umd.js",
   "scripts": {
-    "lint": "eslint src/*.mjs test/*.js demos/*.js",
-    "lint-fix": "eslint src/*.mjs test/*.js --fix demos/*.js",
+    "lint": "eslint src/*.js test/*.js demos/*.js",
+    "lint-fix": "eslint src/*.js test/*.js --fix demos/*.js",
     "start": "http-server .",
     "test": "yarn run build && mocha test/bootstrap.js --recursive test",
-    "build": "microbundle src/index.mjs --no-sourcemap",
+    "build": "microbundle src/index.js --no-sourcemap",
     "prepare": "yarn run -s build",
+    "dev": "microbundle watch src/index.js --compress false",
     "bundlesize": "bundlesize",
     "changelog": "yarn conventional-changelog -i CHANGELOG.md -s -r 0",
     "release": "cross-var yarn run build -s && cross-var git commit -am $npm_package_version && cross-var git tag $npm_package_version && git push && git push --tags"
@@ -46,7 +47,10 @@
   "bundlesize": [
     {
       "path": "./dist/*.js",
-      "maxSize": "2 kB"
+      "maxSize": "20 kB"
     }
-  ]
+  ],
+  "dependencies": {
+    "intersection-observer": "^0.5.1"
+  }
 }

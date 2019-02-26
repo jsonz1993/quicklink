@@ -1,21 +1,3 @@
-/**
- * Portions copyright 2018 Google Inc.
- * Inspired by Gatsby's prefetching logic, with those portions
- * remaining MIT. Additions include support for Fetch API,
- * XHR switching, SaveData and Effective Connection Type checking.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
-**/
 const preFetched = {};
 
 /**
@@ -102,8 +84,9 @@ function prefetcher(url, isPriority, conn) {
   }
 
   if (conn = navigator.connection) {
-    // Don't prefetch if the user is on 2G. or if Save-Data is enabled..
-    if ((conn.effectiveType || '').includes('2g') || conn.saveData) return;
+    // Don't prefetch if the user is on 2G. or 3G or if Save-Data is enabled..
+    const effType = (conn.effectiveType || '');
+    if (effType.includes('2g') || effType.includes('3g') || conn.saveData) return;
   }
 
   // Wanna do something on catch()?
