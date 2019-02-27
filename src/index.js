@@ -2,7 +2,7 @@
  * @Author: 率小火汁Jsonz
  * @Date: 2019-02-25 17:33:09
  * @Last Modified by: 率小火汁Jsonz
- * @Last Modified time: 2019-02-26 20:26:48
+ * @Last Modified time: 2019-02-27 17:02:42
  * @Description: prefetch module
  * 使用:
  * - 默认情况
@@ -166,9 +166,11 @@ export function batchManualRemove(dom) {
  * @param {*} options
  */
 export default function (options= {}) {
-  const userOptions = Object.assign({}, options, quicklinkOptions);
+  const userOptions = Object.assign({}, quicklinkOptions, options);
 
-  const {timeoutFn, timeout, el, allowed, ignores, urls} = userOptions;
+  const {timeoutFn, timeout, el, ignores, urls} = userOptions;
+
+  const allowed = userOptions.allowed || userOptions.origins || [];
 
   timeoutFn(()=> {
     if (urls) urls.forEach(prefetcher);
