@@ -1,6 +1,6 @@
 {
   "name": "@jsonz/quicklink",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Faster subsequent page-loads by prefetching in-viewport links during idle time",
   "repository": "https://github.com/jsonz1993/quicklink.git",
   "author": "jsonz <jsonz@qq.com>",
