@@ -2,7 +2,7 @@
  * @Author: 率小火汁Jsonz
  * @Date: 2019-02-25 17:33:09
  * @Last Modified by: 率小火汁Jsonz
- * @Last Modified time: 2019-02-26 16:48:47
+ * @Last Modified time: 2019-02-26 20:26:48
  * @Description: prefetch module
  * 使用:
  * - 默认情况
@@ -122,6 +122,10 @@ function isIgnored(link, filter) {
  * @return {Function} 返回手动移除的函数，isForce 没有这种操作
  */
 export function manualPreFetch({dom, isForce, link, priority}={}) {
+  if (!dom) {
+    console.warn('@arguments: dom is require');
+    return noop;
+  }
   const href = link || dom.href;
   dom.dataset.href = href;
 
@@ -143,6 +147,7 @@ export function manualPreFetch({dom, isForce, link, priority}={}) {
  * @param {String} link
  */
 export function manualRemovePreFetch(dom, link) {
+  if (!dom) return;
   link = link || dom.dataset.href || dom.href;
   defaultObserver.unobserve(dom);
   toPrefetch.delete(link);

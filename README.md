@@ -25,7 +25,7 @@ quicklink();
 - 获取全局配置
 - 手动设置监听某个dom(不一定要是a标签)
 
-```
+``` javascript
  * - 默认情况
  * quicklink(options);
  * @options timeoutFn 执行监听绑定的函数，默认是 requestIdleCallback
@@ -57,4 +57,50 @@ quicklink();
  * @options link 执行prefetch的link
  * @options priority 传true就用FetchAPI
  * @return 返回一个可以取消监听的函数
+```
+
+# React用法参考
+```javascript
+import React, { useEffect, useRef } from 'react';
+import quicklink, { manualPreFetch, manualRemovePreFetch} from '@jsonz/quicklink';
+
+// class 类型
+class QuicklinkComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.refRoot = React.createRef();
+  }
+
+  componentDidMount() {
+    // didMount 监听组件内所有的a链接
+    quicklink({
+      el: this.refRoot.current,
+    });
+  }
+
+  componentWillUnmount() {
+    // willunmount 移除所有的a链接监听
+    batchManualRemove(this.refRoot.current);
+  }
+  render() {
+    return <div ref={this.refRoot}>{this.props.children}</div>
+  }
+}
+
+// hook 类型
+function QuicklinkDemo() {
+  const refRoot = useRef(null);
+
+  useEffect(()=> {
+    quicklink({
+      el: refRoot.current,
+    });
+    return ()=> {
+      batchManualRemove(refRoot.current);
+    }
+  });
+
+  return ( <div ref={refRoot}>{this.props.children}</div> );
+}
+
 ```
